@@ -9,13 +9,14 @@
 
 <body>
 
-    <h1>Student Registration Successful!</h1>
-
+    {{-- Success Message --}}
     @if (session('success'))
-        <p>
-            {{ session('success') }}
-        </p>
+        <div>
+            <strong>{{ session('success') }}</strong>
+        </div>
     @endif
+
+    <h1>Student Registration Successful!</h1>
 
     <h2>Student Profile</h2>
 
@@ -28,6 +29,8 @@
                 width="200"
             >
         </div>
+    @else
+        <p>No profile picture uploaded.</p>
     @endif
 
     <h3>Student Information</h3>
@@ -88,6 +91,12 @@
     </p>
 
     <br>
+
+    <a href="{{ route('students.index') }}">
+        Back to Student List
+    </a>
+
+    <br><br>
 
     <a href="{{ route('students.create') }}">
         Register Another Student
