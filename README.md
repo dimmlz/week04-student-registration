@@ -34,7 +34,9 @@ The objectives of this project are:
 
 ## 4. Laravel Request Lifecycle
 
-The registration process follows these steps:
+The registration process starts when the user opens the registration form in the browser.
+
+The request follows these steps:
 
 1. The user opens the registration page.
 2. The user fills out the registration form.
@@ -42,61 +44,53 @@ The registration process follows these steps:
 4. The route receives the request.
 5. The StudentController processes the request.
 6. Laravel validates the submitted information.
-7. If the information is invalid, validation errors are displayed.
-8. If the information is valid, the student information is saved.
+7. The Student model handles the student data.
+8. The validated data is saved to the MySQL database.
 9. The profile picture is uploaded using Laravel Storage.
-10. Laravel redirects the user to the student profile page.
+10. Laravel sends a response and redirects the user to the student profile page.
 11. A success message is displayed.
 
 ### Simple Flow
 
 ```text
-User
-  |
-  v
+Browser
+   |
+   v
 Registration Form
-  |
-  v
-Submit Form
-  |
-  v
+   |
+   v
 Route
-  |
-  v
+   |
+   v
 StudentController
-  |
-  v
+   |
+   v
 Validation
-  |
-  +------ Invalid ------> Display Errors
-  |
- Valid
-  |
-  v
-Upload Profile Picture
-  |
-  v
-Save Student Information
-  |
-  v
+   |
+   v
+Student Model
+   |
+   v
 MySQL Database
-  |
-  v
+   |
+   v
+Response
+   |
+   v
 Student Profile
-```
 
 ## 5. Validation Rules
 
 The system uses server-side validation before saving student information.
 
-Some of the validation rules used are:
+The main validation rules are:
 
 | Field | Validation |
 |---|---|
 | Student ID | Required and unique |
-| First Name | Required |
+| First Name | Required, string, and maximum of 100 characters |
 | Middle Name | Optional |
-| Last Name | Required |
+| Last Name | Required, string, and maximum of 100 characters |
 | Email | Required, valid email, and unique |
 | Mobile Number | Required and numeric |
 | Date of Birth | Required |
@@ -104,9 +98,21 @@ Some of the validation rules used are:
 | Program | Required |
 | Year Level | Required |
 | Address | Required |
-| Profile Picture | Required and must be an image |
+| Profile Picture | Required, image only, JPG/JPEG/PNG, maximum 2MB |
 
-Validation is important because it prevents incomplete or incorrect data from being stored in the database.
+Required fields make sure that important student information is not missing.
+
+The unique rule prevents duplicate Student IDs and email addresses.
+
+Email validation makes sure that the email follows the correct format.
+
+Numeric validation makes sure that the mobile number contains numeric values.
+
+Image validation makes sure that the uploaded profile picture is an allowed image file.
+
+The file size restriction helps prevent users from uploading very large files.
+
+Server-side validation is important because the data is checked by the application before it is saved to the database.
 
 ## 6. Database Design
 
@@ -138,9 +144,13 @@ The `student_id` and `email` fields are unique to prevent duplicate student reco
 
 The system allows users to upload a student profile picture.
 
-The uploaded image is stored using Laravel Storage. Only the file path is saved in the database.
+The uploaded image is stored using Laravel Storage inside the public storage directory.
 
-The application uses the public storage link so that the uploaded image can be displayed on the student profile page.
+The `storage:link` command is used to create the public storage link.
+
+Only the file path is saved in the database.
+
+The uploaded profile picture is then displayed on the student profile page after successful registration.
 
 ## 8. User Interface
 
@@ -220,17 +230,21 @@ More meaningful commits will be added as the project documentation and other req
 
 ## 11. Reflection
 
-This project helped me understand how Laravel handles forms and user input.
+This project helped me understand how Laravel handles forms, user input, validation, database records, and file uploads. At first, the registration form looked like a simple form, but I learned that there are many things that need to be checked before information can be stored in a database.
 
-I learned that validation is important because it prevents incomplete or incorrect information from being saved to the database.
+One of the most important things I learned is the importance of validation. Validation helps make sure that the information submitted by the user is complete and follows the required format. For example, the Student ID and email address need to be unique so that duplicate records will not be created. Email validation also makes sure that the user enters a valid email address. Other fields also need to be required so that important student information will not be missing.
 
-I also learned how server-side validation works. Unlike client-side validation, server-side validation is processed by the application before the data is stored. This gives the system another level of protection even if the user tries to submit invalid data.
+I also learned more about handling user input in Laravel. The information from the registration form is sent to the Laravel application through a request. The route receives the request and the controller processes it. Before the information is saved, Laravel checks the submitted data using server-side validation. This helped me understand how different parts of Laravel work together when processing a form.
 
-Another thing I learned is how file uploads work in Laravel. The profile picture is uploaded using Laravel Storage while the file path is saved in the database. This helped me understand how applications handle uploaded files.
+Server-side validation is important because client-side validation alone is not enough. Client-side validation can improve the user experience by showing errors immediately in the browser, but it can still be bypassed. Server-side validation checks the data inside the application before it reaches the database. This gives the system better protection against invalid or unwanted data.
 
-Working with MySQL also helped me understand how the information from the registration form becomes a database record.
+Another lesson I learned is about file uploads. The system allows the user to upload a profile picture, but the application needs to check the uploaded file before storing it. Image validation and file size restrictions help prevent inappropriate or very large files from being uploaded. Laravel Storage also makes it easier to manage uploaded files. Instead of saving the actual image inside the database, only the file path is stored.
 
-Overall, this activity gave me more practice with Laravel forms, controllers, validation, database integration, file uploads, Blade, Tailwind CSS, and Git. These are useful skills for building larger web applications.
+The database part of the project also helped me understand how form information becomes an actual record. The students table stores the information submitted by the user. Using a migration also makes the database structure easier to manage because the table and its columns can be created through Laravel.
+
+Registration systems are also common in real-world enterprise applications. Universities use them for student records, companies use them for employee information, hospitals use them for patient registration, and online systems use them for customer accounts. Because these systems handle important information, validation and proper file handling are necessary.
+
+Overall, this activity gave me more practice with Laravel forms, controllers, validation, models, migrations, MySQL, file uploads, Blade, Tailwind CSS, and Git. It also helped me understand that building a web application is not only about making the interface work. The application also needs to properly process, validate, and store information. These skills will be useful for the larger Laravel projects that I will work on in the future.
 
 ## 12. Screenshots
 
@@ -257,11 +271,15 @@ The following diagrams will be added to the `documentation` folder:
 
 ## 14. References
 
-- Laravel Documentation
-- PHP Documentation
-- MySQL Documentation
-- Tailwind CSS Documentation
-- MDN Web Docs
+Laravel. (n.d.). *Laravel documentation*. https://laravel.com/docs
+
+MDN Web Docs. (n.d.). *MDN Web Docs*. https://developer.mozilla.org/
+
+MySQL. (n.d.). *MySQL 8.0 reference manual*. https://dev.mysql.com/doc/
+
+PHP Documentation Group. (n.d.). *PHP documentation*. https://www.php.net/docs.php
+
+Tailwind Labs. (n.d.). *Tailwind CSS documentation*. https://tailwindcss.com/docs
 
 ## 15. Project Files
 
