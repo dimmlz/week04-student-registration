@@ -1,59 +1,90 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Student Registration System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## ITST 302 – Client-Server Technologies
+### Week 4 – Mini Project 03
 
-## About Laravel
+## 1. Introduction
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The Student Registration System is a simple Laravel web application for registering students.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+The system allows the user to enter student information such as Student ID, name, email, mobile number, date of birth, gender, program, year level, address, and profile picture.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The information is validated before it is saved to the MySQL database. The system also shows a success message after registration and displays the student's profile.
 
-## Learning Laravel
+This project shows how Laravel can be used for forms, validation, file upload, database connection, and displaying data.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Purpose of the System
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+The purpose of this project is to make the student registration process easier and more organized.
 
-## Laravel Sponsors
+Instead of using paper forms, student information can be entered and stored in a database.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Importance of Data Validation
 
-### Premium Partners
+Data validation is important because it helps make sure that the information entered by the user is correct and complete.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+For example, the Student ID and email must be unique, the email must have a valid format, and the profile picture must be an accepted image file.
 
-## Contributing
+### Use of Registration Systems
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Registration systems are used in many organizations such as schools, companies, hospitals, and government offices.
 
-## Code of Conduct
+They help collect and store information in an organized way.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 2. Objectives
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+The objectives of this project are:
 
-## License
+- Create a student registration form using Laravel Blade.
+- Process form data using a Laravel controller.
+- Use server-side validation.
+- Display validation error messages.
+- Display a success message after registration.
+- Upload a student profile picture.
+- Store student information in MySQL.
+- Display registered student information.
+- Use Laravel routes, models, migrations, and controllers.
+- Create a responsive user interface using Tailwind CSS.
+- Use Git for version control.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 3. Laravel Request Lifecycle
+
+The registration process follows this simple flow:
+
+```text
+User
+  |
+  v
+Registration Form
+  |
+  v
+Laravel Route
+  |
+  v
+StudentController
+  |
+  v
+Validation
+  |
+  +------ No ------> Show Errors
+  |
+ Yes
+  |
+  v
+Upload Profile Picture
+  |
+  v
+Student Model
+  |
+  v
+MySQL Database
+  |
+  v
+Success Message
+  |
+  v
+Student Profile
